@@ -2,8 +2,7 @@
 Server backend for rDany
 
 ## Running rDany locally
-Joing rDany Telegram group: https://t.me/joinchat/AAAAAD_mgtrLzFNPDtdbIg
-
+Joing rDany Telegram group: https://t.me/joinchat/AAAAAD_mgtrLzFNPDtdbIg or IRC on Freenode `#rdany`.
     mkdir rdany
     cd rdany
     git clone https://github.com/llSourcell/tensorflow_chatbot.git
