@@ -14,9 +14,14 @@ import random as rd
 
 from rdany import app
 
-main = Blueprint('main', __name__)
+from rdany.modules.mvp import rdanymvp
 
 from difflib import SequenceMatcher
+
+
+
+main = Blueprint('main', __name__)
+
 
 def similar(a, b):
         return SequenceMatcher(None, a, b).ratio()
@@ -173,11 +178,11 @@ def save_message(platform, user_id, message_id, message_text, dbname=None, answe
     get_db(dbname).commit()
 
 
-@main.route('/', methods=['POST', 'GET']) 
+@main.route('/', methods=['POST', 'GET'])
 def index():
     init_db()
     msg = request.json
-    
+
     welcome_text = """*Welcome!* This bot is an AI, it learns every day, but is in its infancy now, so be patient.
 
 _(And please don't give personal information 🔐)_
@@ -352,7 +357,7 @@ def rdany_api():
     msg = request.json
 
     init_db()
-    
+
     if request.method == 'GET':
         next_question = query_db("SELECT * FROM queue WHERE answered=0 AND muted=0", one=True)
         if not next_question:
@@ -443,7 +448,7 @@ def receivedMessage(message):
         message_text = "[start]"
 
     save_message('facebook', senderID, messageID, message_text)
-    
+
 
 @main.route('/facebook', methods=['POST', 'GET'])
 def facebook():
@@ -477,11 +482,11 @@ def kik_config():
             'Content-Type': 'application/json'
         },
         data=json.dumps({
-            'webhook': 'https://rdanybot.rdany.org/kik', 
+            'webhook': 'https://rdanybot.rdany.org/kik',
             'features': {
-                'receiveReadReceipts': False, 
-                'receiveIsTyping': False, 
-                'manuallySendReadReceipts': False, 
+                'receiveReadReceipts': False,
+                'receiveIsTyping': False,
+                'manuallySendReadReceipts': False,
                 'receiveDeliveryReceipts': False
             }
         })
@@ -537,7 +542,7 @@ def kik_send(chat_id, text):
                 }
             ]
         })
-    ) 
+    )
 
 
 @main.route('/simsimi', methods=['GET', 'POST'])
@@ -634,7 +639,7 @@ def rdany_backend():
                 msg_id = int(msg_id[0][2:])
             except:
                 answer["text"] = "Bad Id"
-                return jsonify(answer) 
+                return jsonify(answer)
             if text == "":
                 answer["text"] = "Empty message not allowed"
             else:
@@ -643,5 +648,22 @@ def rdany_backend():
                 answer["text"] = "Message <{0}> saved on ID {1}".format(text, msg_id)
         else:
             answer["text"] = "unknown"
-    
+
     return jsonify(answer)
+
+from flask import render_template
+
+@main.route('/mvp')
+def mvp():
+    return render_template("mvp.html")
+
+@main.route('/mvp_api')
+def mvp_api():
+    text_processor = rdanymvp()
+    input_text = None
+    pause, answers, questions = text_processor.process_text(input_text)
+    #print (answers)
+    #print (questions)
+    #if not pause:
+    #    input_text = input(">")
+    return jsonify({})

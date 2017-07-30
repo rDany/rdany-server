@@ -1,7 +1,7 @@
 import time
 import random
 
-from script import dialog
+from rdany.modules.mvp.script import dialog
 
 class rdanymvp:
     def __init__(self):
@@ -150,11 +150,12 @@ class rdanymvp:
         #print()
         return self.pause, answers_text, questions_text
 
-text_processor = rdanymvp()
-input_text = None
-while 1:
-    pause, answers, questions = text_processor.process_text(input_text)
-    print (answers)
-    print (questions)
-    if not pause:
-        input_text = input(">")
+if 0:
+    text_processor = rdanymvp()
+    input_text = None
+    while 1:
+        pause, answers, questions = text_processor.process_text(input_text)
+        print (answers)
+        print (questions)
+        if not pause:
+            input_text = input(">")
