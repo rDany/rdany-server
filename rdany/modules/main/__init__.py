@@ -4,7 +4,9 @@ from flask import Blueprint
 from flask import jsonify
 from flask import request
 from flask import g
+from flask import render_template
 
+import os
 import json
 import time
 import requests
@@ -493,6 +495,7 @@ def kik_config():
     )
     return "ok"
 
+
 @main.route('/kik', methods=['GET', 'POST'])
 def kik():
     msg = request.json
@@ -522,6 +525,7 @@ def kik():
             continue
         save_message('kik', "{0}:{1}".format(message["from"], message["chatId"]), message["id"], message_text)
     return "ok"
+
 
 def kik_send(chat_id, text):
     to_ = chat_id.split(':')[0]
@@ -651,11 +655,11 @@ def rdany_backend():
 
     return jsonify(answer)
 
-from flask import render_template
 
 @main.route('/mvp')
 def mvp():
     return render_template("mvp.html")
+
 
 @main.route('/mvp_api', methods=['POST'])
 def mvp_api():
@@ -672,6 +676,18 @@ def mvp_api():
         text_processor.pause = request_data["text_processor_state"]["pause"]
 
     pause, answers, questions = text_processor.process_text(question)
+
+    json_filename = "log/{}.json".format(request_data["random_seed"])
+    json_data = []
+    if os.path.exists(json_filename):
+        with open(json_filename) as data_file:
+            try:
+                json_data = json.load(data_file)
+            except:
+                pass
+    json_data.append([question, answers, questions])
+    with open(json_filename, 'w') as data_file:
+        json.dump(json_data, data_file, sort_keys=True, indent=4, separators=(',', ': '))
 
     text_processor_state = {
         'previous_level': text_processor.previous_level,

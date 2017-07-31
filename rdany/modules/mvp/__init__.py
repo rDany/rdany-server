@@ -1,4 +1,5 @@
 import time
+import json
 import random
 
 from rdany.modules.mvp.script import dialog
@@ -151,15 +152,4 @@ class rdanymvp:
         else:
             self.current_level = self.previous_level
             self.pause = True
-        #print()
         return self.pause, answers_text, questions_text
-
-if 0:
-    text_processor = rdanymvp()
-    input_text = None
-    while 1:
-        pause, answers, questions = text_processor.process_text(input_text)
-        print (answers)
-        print (questions)
-        if not pause:
-            input_text = input(">")
