@@ -7,17 +7,19 @@ dialog = {
         "date_mission": "no"
     },
     "root": [
-        ["_English_", "language_selected", "language:en"],
-        ["_Español_", "language_selected", "language:es"]
+        ["a", "Please, select your preferred language - Por favor elija su idioma preferido::Please, select your preferred language - Por favor elija su idioma preferido"],
+        ["English", "language_selected", "language:en"],
+        ["Español", "language_selected", "language:es"]
     ],
     "language_selected": [
         ["a", "Nice, we will talk in English then::Excelente, hablaremos en Español entonces"],
-        ["_Ok_!::_Ok_!", "gender"],
-        ["_Cancel_::_Cancelar_", "root"]
+        ["Ok!::Ok!", "gender"],
+        ["Cancel::Cancelar", "root"]
     ],
     "gender": [
-        ["I prefer to be referred as _he_::Prefiero que se dirigan a mi como _el_", "gender_selected", "gender:male"],
-        ["I prefer to be referred as _she_::Prefiero que se dirigan a mi como _ella_", "gender_selected", "gender:female"]
+        ["a", "Should I refer to you as she or he?::¿Debería referirme a ti como ella o el?"],
+        ["He is ok::El está bien", "gender_selected", "gender:male"],
+        ["She  is ok::Ella está bien", "gender_selected", "gender:female"]
     ],
     "gender_selected": [
         ["a", [
@@ -25,15 +27,15 @@ dialog = {
             ["You are a welcomed he::¡Bienvenido!", "gender:male"],
             ["You are a welcomed she::¡Bienvenida!", "gender:female"]
         ]],
-        ["_Thank_ you!::_Gracias_!", "greetings"],
-        ["_Change_::_Cambiar_", "gender"]
+        ["Thank you!::Gracias!", "greetings"],
+        ["Change::Cambiar", "gender"]
     ],
     "greetings": [
-        ["_Hi_ Dany::_Hola_ Dany", "hi"],
-        ["I want to ask you about _Mars_...::Te quería preguntar, acerca de _Marte_...", "mars_questions"],
-        ["On what are you _working_ on?::¿En qué estás _trabajando_?", "mission"],
+        ["Hi Dany::Hola Dany", "hi"],
+        ["I want to ask you about Mars...::Te quería preguntar, acerca de Marte...", "mars_questions"],
+        ["On what are you working on?::¿En qué estás trabajando?", "mission"],
         #["On what are you _working_ on?::¿En qué estás _trabajando_?", "mission_helping", "date_mission:yes"],
-        ["Talk you _later_...::_Hablamos_ luego...", "talk_later"]
+        ["Talk you later...::Hablamos luego...", "talk_later"]
     ],
     "hi": [
         ["a", [
@@ -43,9 +45,9 @@ dialog = {
 
             ["Hi!::¡Hola!", "hi_first:no"]
         ]],
-        ["_Who_ are you?::¿_Quién_ eres?", "hi_who"],
-        ["What is your _purpose_?::¿Cuál es tu _propósito_?", "hi_purpose"],
-        ["Enough greetings for now...::_Suficientes_ saludos por ahora...", "greetings", "hi_first:no"]
+        ["Who are you?::¿Quién eres?", "hi_who"],
+        ["What is your purpose?::¿Cuál es tu propósito?", "hi_purpose"],
+        ["Enough greetings for now...::Suficientes saludos por ahora...", "greetings", "hi_first:no"]
     ],
     "hi_who": [
         ["a", "I am Rover Data Analysis, RDANY for short::Yo soy Rover Data Analysis, RDANY para abreviar"]
@@ -55,9 +57,9 @@ dialog = {
     ],
     "mars_questions": [
         ["a", "Yes?::Si?"],
-        ["What _date_ is it there?::¿Qué _fecha_ tienes allí?", "mq_date"],
-        ["What is the current _distance_ from Earth?::¿Cuál es la _distancia_ actual desde la Tierra?", "mq_distance"],
-        ["Do you know some fun _fact_ about Mars? (by tanyaofmars)::¿Tienes algún _dato_ curioso sobre Marte? (por tanyaofmars)", "mq_funfact"],
+        ["What date is it there?::¿Qué fecha tienes allí?", "mq_date"],
+        ["What is the current distance from Earth?::¿Cuál es la distancia actual desde la Tierra?", "mq_distance"],
+        ["Do you know some fun fact about Mars? (by tanyaofmars)::¿Tienes algún dato curioso sobre Marte? (por tanyaofmars)", "mq_funfact"],
         ["Thanks!::¡Gracias!", "greetings"]
     ],
     "mq_date": [
@@ -108,34 +110,39 @@ dialog = {
     ],
     "mission": [
         ["a", [
-            ["Working hard! But it has its rewards::¡Trabajando duro! Pero tiene sus recompensas"],
-            ["The landscape is unique!::¡El paisaje es único!"],
+            ["Currently I'm doing some maintainanse here::Ahora mismo estoy haciendo algo de mantenimiento"],
+            ["There is always something that need fixing!::¡Siempre hay algo que necesita reparaciones!"],
         ]],
-        ["Sounds _exhousting_!::Suena _cansador_...", "mission_helping"],
-        ["_Not_ for me!::¡Suena a que _no_ es para mi!", "mission_helping"],
+        ["A challenge!::¡Suena a desafío!", "mission_helping"],
+        ["I am not a technical person::No me llevo mucho con lo técnico", "mission_helping"],
 
         #["_Cool_!::¡_Genial_!", "greetings", "fixed_date:yes"],
     ],
     "mission_helping": [
         ["a", [
-            ["Now that you mention it, I need some little help::Ahora que lo mensionas, necesitaría un poquito de ayuda"],
+            ["Now that you mention it, I need some little help::Ahora que lo mencionas, necesitaría un poquito de ayuda"],
             ["I feel like my internal clock is out of sync::Siento que mi reloj interno no está sincronizado"],
-            ["My date is #wrongdate#, could you tell me if the value should be lower or higher?::Mi fecha es #wrongdate# ¿Me podrías decir si el valor debería ser mas bajo o mas alto?"]
+            ["My date is #wrongdate#, could you tell me the offset to correct it?::Mi fecha MSD (Mars Sol Date) es #wrongdate# ¿Me podrías decir cual es valor correcto de la corrección?"]
         ]],
-        ["_Yes_, sure!::_Si_ ¡Seguro!", "mh_yes"],
-        ["_No_, I have something to do. So...::_No_, tengo algo que hacer, así que...", "greetings"]
+        ["Yes, sure!::Si ¡Seguro!", "mh_yes"],
+        ["No, I have something to do. So...::No, tengo algo que hacer, así que...", "greetings"]
     ],
     "mh_yes": [
-        ["a", "Great! So, should be lower or higher?::¡Genial! Entonces, debería ser mas bajo, o mas alto?"],
-        ["_Lower_::Mas _bajo_", "mh_lower"],
-        ["_Higher_::Mas _alto_", "mh_higher", "fixed_date:yes,date_mission:no"]
+        ["a", "Great! So, what is the right difference?::¡Genial! Entonces, cual es la diferencia correcta?"],
+        ["+15::+15", "mh_lower"],
+        ["-5::-5", "mh_lower"],
+        ["-15::-15", "mh_lower"],
+        ["+20::+20", "mh_higher", "fixed_date:yes,date_mission:no"],
+        ["-3::-3", "mh_lower"],
+        ["+25::+25", "mh_lower"],
     ],
     "mh_lower": [
-        ["a", "No, something is wrong. You should be able to find the right date on a Martian online clock::No, algo está mal. Deberías poder encontrar la fecha correcta en un reloj de Marte online."],
+        ["a", "No, something is wrong. You should be able to find the right date on a Mars Sol Date online clock::No, algo está mal. Deberías poder encontrar la fecha correcta en un reloj de Mars Sol Date online."],
+        ["I will investigate::Voy a investigar", "greetings"]
     ],
     "mh_higher": [
         ["a", "Yes! Now is working properly. Thank you!::¡Si! Ahora está funcionando correctamente ¡Gracias!"],
-        ["You are _welcome_::De _nada_", "greetings"]
+        ["You are welcome::De nada", "greetings"]
     ],
     "talk_later": [
         ["a", "Time to keep exploring!::¡A seguir explorando!"],

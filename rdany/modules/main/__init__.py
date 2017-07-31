@@ -657,13 +657,31 @@ from flask import render_template
 def mvp():
     return render_template("mvp.html")
 
-@main.route('/mvp_api')
+@main.route('/mvp_api', methods=['POST'])
 def mvp_api():
+    request_data = request.json
+    question = request_data["question"]
+
     text_processor = rdanymvp()
-    input_text = None
-    pause, answers, questions = text_processor.process_text(input_text)
-    #print (answers)
-    #print (questions)
-    #if not pause:
-    #    input_text = input(">")
-    return jsonify({})
+    if request_data["text_processor_state"] is not None:
+        text_processor.previous_level = request_data["text_processor_state"]["previous_level"]
+        text_processor.current_level = request_data["text_processor_state"]["current_level"]
+        text_processor.questions = request_data["text_processor_state"]["questions"]
+        text_processor.answers = request_data["text_processor_state"]["answers"]
+        text_processor.dialog["variables"] = request_data["text_processor_state"]["variables"]
+        text_processor.pause = request_data["text_processor_state"]["pause"]
+
+    pause, answers, questions = text_processor.process_text(question)
+
+    text_processor_state = {
+        'previous_level': text_processor.previous_level,
+        'current_level': text_processor.current_level,
+        'questions': text_processor.questions,
+        'answers': text_processor.answers,
+        'variables': text_processor.dialog["variables"],
+        'pause': text_processor.pause
+    }
+
+    return jsonify({"answers": answers,
+                    "questions": questions,
+                    "text_processor_state": text_processor_state,})

@@ -1,1 +1,75 @@
-<h1>MVP</h1>
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>rDany MVP</title>
+</head>
+<body>
+    <div class="container">
+        <h1>MVP</h1>
+        <div id="current_answer"></div>
+        <div id="questions"></div>
+        <div id="answers"></div>
+    </div>
+
+    <script src="static/jquery-3.2.1.min.js"></script>
+    <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script>
+
+$( document ).ready(function() {
+    get_answer(null);
+});
+
+text_processor_state = null
+
+function get_answer(question) {
+    question_letter = null
+    if (question != null) {
+        $( "#answers" ).prepend("<div class='alert alert-danger' role='alert'><strong>Human:</strong><br>"+question+"</div>");
+        question_letter = question[0]
+    }
+    arr = {
+        "question": question_letter,
+        "text_processor_state": text_processor_state,
+    }
+    var jqxhr = $.ajax( {method: "POST",
+                        url: "/mvp_api",
+                        data: JSON.stringify(arr),
+                        dataType: "json",
+                        contentType: 'application/json; charset=utf-8'} )
+        .done(function(msg) {
+            text_processor_state = msg["text_processor_state"];
+            questions_html = "";
+            for (var i in msg["questions"]) {
+                //questions_html += "<p><a href=\"#\" onclick=\"get_answer('"+msg["questions"][i]+"');return false;\">"+msg["questions"][i]+"</a></p>";
+                questions_html += "<p><button class='btn btn-default' type='submit' onclick=\"get_answer('"+msg["questions"][i]+"');return false;\">"+msg["questions"][i]+"</button></p>";
+            }
+            if (questions_html != "") {
+                $( "#questions" ).html(questions_html);
+            }
+            answers_html = ""
+            for (var i in msg["answers"]) {
+                answers_html += "<p>"+msg["answers"][i]+"</p>"
+            }
+            if (answers_html != "") {
+                $( "#answers" ).prepend("<div class='alert alert-success' role='alert'><strong>rDany:</strong><br>"+answers_html+"</div>");
+                $( "#current_answer" ).html("<div class='alert alert-success' role='alert'><strong>rDany:</strong><br>"+answers_html+"</div>");
+            }
+            if (text_processor_state["pause"]==true) {
+                get_answer(null);
+            }
+        })
+        .fail(function() {
+            //alert( "error" );
+        })
+        .always(function() {
+            //alert( "complete" );
+    });
+}
+
+    </script>
+</body>
+</html>

@@ -9,7 +9,7 @@ class rdanymvp:
         self.previous_level = "root"
         self.current_level = "root"
         self.user_input = None
-        self.dialog = dialog
+        self.dialog = dict(dialog)
         self.answers = []
         self.questions = []
 
@@ -79,6 +79,8 @@ class rdanymvp:
                 text_answer = answer[0].split("::")[0]
             else:
                 text_answer = answer[0].split("::")[1]
+        else:
+            text_answer = answer[0].split("::")[0]
         return text_answer
 
 
@@ -109,8 +111,10 @@ class rdanymvp:
                             var_value = modification.split(":")[1]
                             #print ("Set {} var to {}".format(var_name, var_value))
                             self.dialog["variables"][var_name] = var_value
+        was_paused = False
         if self.pause:
             self.pause = False
+            was_paused = True
         self.answers, self.questions, self.current_level = self.process(self.current_level)
         if len(self.answers) > 0:
             posible_answers = []
@@ -126,7 +130,7 @@ class rdanymvp:
                     text_answer = self.process_answers(answer)
                     if text_answer is not None:
                         posible_answers.append([text_answer])
-            if len(posible_answers) > 0:
+            if len(posible_answers) > 0 and not was_paused:
                 random_answer = random.choice(posible_answers)
                 for answer in random_answer:
                     answer = self.replace_tokens(answer)
