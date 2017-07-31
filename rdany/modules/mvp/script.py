@@ -122,7 +122,7 @@ dialog = {
         ["a", [
             ["Now that you mention it, I need some little help::Ahora que lo mencionas, necesitaría un poquito de ayuda"],
             ["I feel like my internal clock is out of sync::Siento que mi reloj interno no está sincronizado"],
-            ["My date is #wrongdate#, could you tell me the offset to correct it?::Mi fecha MSD (Mars Sol Date) es #wrongdate# ¿Me podrías decir cual es valor correcto de la corrección?"]
+            ["My date is #wrongdate#, could you help me to fix it?::Mi fecha MSD (Mars Sol Date) es #wrongdate# ¿Me podrías ayudar a corregirla?"]
         ]],
         ["Yes, sure!::Si ¡Seguro!", "mh_yes"],
         ["No, I have something to do. So...::No, tengo algo que hacer, así que...", "greetings"]
