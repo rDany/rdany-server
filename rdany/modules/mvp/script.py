@@ -23,7 +23,7 @@ dialog = {
     ],
     "gender_selected": [
         ["a", [
-            ["Excelent!::¡Excelente!"],
+            ["Excellent!::¡Excelente!"],
             ["You are a welcomed he::¡Bienvenido!", "gender:male"],
             ["You are a welcomed she::¡Bienvenida!", "gender:female"]
         ]],
@@ -33,7 +33,7 @@ dialog = {
     "greetings": [
         ["Hi Dany::Hola Dany", "hi"],
         ["I want to ask you about Mars...::Te quería preguntar, acerca de Marte...", "mars_questions"],
-        ["On what are you working on?::¿En qué estás trabajando?", "mission"],
+        ["What are you working on?::¿En qué estás trabajando?", "mission"],
         #["On what are you _working_ on?::¿En qué estás _trabajando_?", "mission_helping", "date_mission:yes"],
         ["Talk you later...::Hablamos luego...", "talk_later"]
     ],
@@ -57,7 +57,7 @@ dialog = {
     ],
     "mars_questions": [
         ["a", "Yes?::Si?"],
-        ["What date is it there?::¿Qué fecha tienes allí?", "mq_date"],
+        ["What date is on Mars?::¿Qué fecha tienes en Marte?", "mq_date"],
         ["What is the current distance from Earth?::¿Cuál es la distancia actual desde la Tierra?", "mq_distance"],
         ["Do you know some fun fact about Mars? (by tanyaofmars)::¿Tienes algún dato curioso sobre Marte? (por tanyaofmars)", "mq_funfact"],
         ["Thanks!::¡Gracias!", "greetings"]
@@ -110,7 +110,7 @@ dialog = {
     ],
     "mission": [
         ["a", [
-            ["Currently I'm doing some maintainanse here::Ahora mismo estoy haciendo algo de mantenimiento"],
+            ["Currently I'm doing some maintenance here::Ahora mismo estoy haciendo algo de mantenimiento"],
             ["There is always something that need fixing!::¡Siempre hay algo que necesita reparaciones!"],
         ]],
         ["A challenge!::¡Suena a desafío!", "mission_helping"],
@@ -141,7 +141,10 @@ dialog = {
         ["I will investigate::Voy a investigar", "greetings"]
     ],
     "mh_higher": [
-        ["a", "Yes! Now is working properly. Thank you!::¡Si! Ahora está funcionando correctamente ¡Gracias!"],
+        ["a", [
+            ["Yes! It is working properly now. Thank you!::¡Si! Ahora está funcionando correctamente ¡Gracias!"],
+            ["Congratulations! You have unlocked the access to the secret rDany newsletter:#subscribeform#::¡Felicitaciones! Haz desbloqueado el acceso al newsletter secreto de rDany:#subscribeform#"]
+        ]],
         ["You are welcome::De nada", "greetings"]
     ],
     "talk_later": [
