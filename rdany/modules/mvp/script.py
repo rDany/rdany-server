@@ -15,7 +15,7 @@ dialog = {
         ["a", [
             ["Downloading dictionary...::Descargando diccionario..."],
             ["Learning language...::Aprendiendo idioma..."],
-            ["Done. I know English!::Listo ¡Ya se Español!"],
+            ["Done. I know English!::Listo ¡Ya sé Español!"],
             ["My name is Rover Dany, but you can call me Dany::Mi nombre es Rover Dany, pero puedes llamarme Dany"],
             ["Perfect timing for you to show up, I am about to do some repairs::Apareciste en el momento justo, estoy a punto de hacer algunas reparaciones"]
         ]],
