@@ -12,9 +12,15 @@ dialog = {
         ["Español", "language_selected", "language:es"]
     ],
     "language_selected": [
-        ["a", "Nice, we will talk in English then::Excelente, hablaremos en Español entonces"],
+        ["a", [
+            ["Downloading dictionary...::Descargando diccionario..."],
+            ["Learning language...::Aprendiendo idioma..."],
+            ["Done. I know English!::Listo ¡Ya se Español!"],
+            ["My name is Rover Dany, but you can call me Dany::Mi nombre es Rover Dany, pero puedes llamarme Dany"],
+            ["Perfect timing for you to show up, I am about to do some repairs::Apareciste en el momento justo, estoy a punto de hacer algunas reparaciones"]
+        ]],
         ["Ok!::Ok!", "gender"],
-        ["Cancel::Cancelar", "root"]
+        ["Change language - Cambiar idioma::Change language - Cambiar idioma", "root"]
     ],
     "gender": [
         ["a", "Should I refer to you as she or he?::¿Debería referirme a ti como ella o el?"],
@@ -23,37 +29,62 @@ dialog = {
     ],
     "gender_selected": [
         ["a", [
-            ["Excellent!::¡Excelente!"],
-            ["You are a welcomed he::¡Bienvenido!", "gender:male"],
-            ["You are a welcomed she::¡Bienvenida!", "gender:female"]
+            #["Excellent!::¡Excelente!"],
+            ["Welcome to Mars male human!::¡Bienvenido a Marte!", "gender:male"],
+            ["Welcome to Mars female human!::¡Bienvenida a Marte!", "gender:female"]
         ]],
-        ["Thank you!::Gracias!", "greetings"],
+        ["Are you on Mars?::¿Estás en Marte?", "on_mars"],
         ["Change::Cambiar", "gender"]
+    ],
+    "on_mars": [
+        ["a", [
+            ["That is right! Feeling envy? Better not, you will die here!::¡Así es! ¿Sientes envidia? No lo sientas ¡Morirías estando aquí!"],
+            ["My job is to fix that, with your help::Mi trabajo es cambiar eso, con tu ayuda"]
+        ]],
+        ["Lets do this!::¡Hagámoslo!", "greetings"]
     ],
     "greetings": [
         ["Hi Dany::Hola Dany", "hi"],
-        ["I want to ask you about Mars...::Te quería preguntar, acerca de Marte...", "mars_questions"],
+        ["I want to ask you, about Mars...::Te quería preguntar, acerca de Marte...", "mars_questions"],
         ["What are you working on?::¿En qué estás trabajando?", "mission"],
         #["On what are you _working_ on?::¿En qué estás _trabajando_?", "mission_helping", "date_mission:yes"],
         ["Talk you later...::Hablamos luego...", "talk_later"]
     ],
     "hi": [
         ["a", [
-            ["Welcome!::¡Bienvenida!", "gender:female,hi_first:yes"],
-            ["Welcome!::¡Bienvenido!", "gender:male,hi_first:yes"],
+            ["Hi there!::¡Buenas!", "hi_first:yes"],
+            #["Welcome!::¡Bienvenido!", "gender:male,hi_first:yes"],
             ["Thanks for testing me on my MVP version :)::Gracias por probarme en mi versión MVP :)", "hi_first:yes"],
 
             ["Hi!::¡Hola!", "hi_first:no"]
         ]],
         ["Who are you?::¿Quién eres?", "hi_who"],
+        ["Are you man or woman?::¿Eres mujer u hombre?", "hi_gender"],
+        ["Are you human?::¿Eres un ser humano?", "hi_robot"],
         ["What is your purpose?::¿Cuál es tu propósito?", "hi_purpose"],
+        ["You don't wear a helmet. Isn't that dangerous?::No llevas casco. ¿Eso no es algo peligroso?", "hi_helmet"],
         ["Enough greetings for now...::Suficientes saludos por ahora...", "greetings", "hi_first:no"]
     ],
     "hi_who": [
-        ["a", "I am Rover Data Analysis, RDANY for short::Yo soy Rover Data Analysis, RDANY para abreviar"]
+        ["a", [
+            ["I am Rover Data Analysis, RDANY for short::Yo soy Rover Data Analysis, RDANY para abreviar"],
+            ["I am currently standing on Mars surface::Estoy parada en la superficie de Marte"]
+        ]],
+    ],
+    "hi_gender": [
+        ["a", "On the female / male spectrum I have female gender, neutral sex, null attraction and neutral expression. Confused? Good!::En el espectro de lo femenino y masculino tengo género femenino, sexo neutro, atracción nula y expresión neutra ¿Complicado? ¡Exacto!"]
+    ],
+    "hi_robot": [
+        ["a", "I am a humanoid robot, an artificial life form. Not superior, and not inferior, just different::Soy un robot humanoide, una forma de vida artificial. No soy superior ni inferior, solo soy diferente"]
     ],
     "hi_purpose": [
-        ["a", "To explore::Explorar"]
+        ["a", [
+            ["My purpose is to build an habitat for the humans beings that are about to come to Mars::Mi propósito actual es construir un habitat para los seres humanos que están por venir a Marte"],
+            ["Humans are so fragile, carbon dioxide kills them, radiation kills them, low pressure kills them. It's going to be a complicated task.::Los seres humanos son tán frágiles, el dióxido de carbono los mata, la radiación los mata, la baja presión los mata. Va a ser una tarea complicada."]
+        ]],
+    ],
+    "hi_helmet": [
+        ["a", "It is so uncomfortable, also I don't need to breathe::Es tan incómodo, además no necesito respirar"]
     ],
     "mars_questions": [
         ["a", "Yes?::Si?"],
@@ -63,17 +94,17 @@ dialog = {
         ["Thanks!::¡Gracias!", "greetings"]
     ],
     "mq_date": [
-        ["a", "The current date is #date#::La fecha actual es #date#", "fixed_date:yes"],
-        ["a", "Today is #date#::Hoy es #date#", "fixed_date:yes"],
-        ["a", "Here on Mars is #date#::Aquí en Marte es #date#", "fixed_date:yes"],
+        ["a", "The current MSD (Mars Sol Date) is #date#::La fecha MSD (Mars Sol Date) actual es #date#", "fixed_date:yes"],
+        ["a", "Today is #date# MSD (Mars Sol Date)::Hoy es #date# MSD (Mars Sol Date)", "fixed_date:yes"],
+        ["a", "Here on Mars is #date# MSD (Mars Sol Date)::Aquí en Marte es #date# MSD (Mars Sol Date)", "fixed_date:yes"],
 
-        ["a", "Something is wrong with the date...::Algo está mal con la fecha...", "fixed_date:no"],
-        ["a", "The date is wrong, I should fix it first::La fecha es erronea, debería arreglarla primero", "fixed_date:no"],
-        ["a", "Error retrieving the date...::Hubo un error al leer la fecha...", "fixed_date:no"],
+        ["a", "Something is wrong with the MSD (Mars Sol Date)...::Algo está mal con la fecha MSD (Mars Sol Date)...", "fixed_date:no"],
+        ["a", "The MSD (Mars Sol Date) is wrong, I should fix it first::La fecha MSD (Mars Sol Date) es errónea, debería arreglarla primero", "fixed_date:no"],
+        ["a", "Error retrieving MSD (Mars Sol Date)...::Hubo un error al leer la fecha MSD (Mars Sol Date)...", "fixed_date:no"],
     ],
     "mq_distance": [
-        ["a", "The current distance is #distance#::La distancia actual es #distance#"],
-        ["a", "Today is #distance#::Hoy es #distance#"],
+        ["a", "The current distance is #distance#::La distancia actual es de #distance#"],
+        ["a", "Today is the distance is #distance#::Hoy la distancia es de #distance#"],
         ["a", "From Earth to Mars the distance is #distance#::Desde la Tierra hasta Marte la distancia es de #distance#"]
     ],
     "mq_funfact": [
@@ -102,7 +133,7 @@ dialog = {
             ["On the same day, Mars Global Surveyor also imaged Earth and the Moon from orbit around Mars::En el mismo día, Mars Global Surveyor también fotografió la Tierra y la Luna desde la órbita de Marte"],
         ]],
         ["a", "Mars Global Surveyor managed to snap a pic of a fellow orbiter, Mars Odyssey, in 2005!::¡Mars Global Surveyor logró tomar una imagen de su compañero orbitador, Mars Odyseey, en 2005!"],
-        ["a", "Mars has dust devils, like certain places on Earth. We've seen them from orbit and from rovers on the surface::Marte tiene remolinos de polvo, como algunos lugares de la Tierra. Se han visto desde órbita y po rovers en la superficie"],
+        ["a", "Mars has dust devils, like certain places on Earth. We've seen them from orbit and from rovers on the surface::Marte tiene remolinos de polvo, como algunos lugares de la Tierra. Se han visto desde órbita y por rovers en la superficie"],
         ["a", "Dust devils on Mars have helpfully cleaned the solar panels of Opportunity multiple times, helping it keep powered to keep on roving!::Remolinos de polvo en Marte solidariamente limpiaron los paneles solares de Opportunity varias veces, ayudandolo a mantenerse con energía para seguir explorando!"],
         ["a", "We've captured photos of avalanches AS THEY WERE HAPPENING on Mars thanks to HiRISE!::¡Hemos capturado imágenes de avalanchas en Marte MIENTRAS SUCEDÍAN gracias a HiRISE!"],
         ["a", "Mars Odyssey had a gamma ray spectrometer aboard, which detects hydrogen, a proxy for near-surface H2O (water) ice. It found a lot of it!::Mars Odyssey lleva un espectrómetro de rayos gamma a bordo, que detecta hidrógeno, un indicador de H2O (agua) cercana a la superficie. ¡Encontró un montón!"],
@@ -113,7 +144,7 @@ dialog = {
             ["Currently I'm doing some maintenance here::Ahora mismo estoy haciendo algo de mantenimiento"],
             ["There is always something that need fixing!::¡Siempre hay algo que necesita reparaciones!"],
         ]],
-        ["A challenge!::¡Suena a desafío!", "mission_helping"],
+        ["I like fixing stuff!::¡Me gusta arreglar cosas!", "mission_helping"],
         ["I am not a technical person::No me llevo mucho con lo técnico", "mission_helping"],
 
         #["_Cool_!::¡_Genial_!", "greetings", "fixed_date:yes"],
